@@ -17,7 +17,7 @@ import java.util.*
 class CreateNoteFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
-    private var currentDate: String?= null
+    private var currentDate: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +71,23 @@ class CreateNoteFragment : BaseFragment() {
         } else if (etNoteDescription.text.isNullOrEmpty()) {
 
             Toast.makeText(context, "Note Description is Required", Toast.LENGTH_SHORT).show()
+        }
+
+        launch {
+            val notes = Notes()
+
+            notes.title = etNoteTitle.text.toString()
+            notes.subTitle = etNoteSubTitle.text.toString()
+            notes.noteText = etNoteDescription.text.toString()
+            notes.dateTime = currentDate
+
+            context?.let {
+                NotesDatabase.getDatabase(it).noteDao().insertNotes(notes)
+
+                etNoteTitle.setText("")
+                etNoteSubTitle.setText("")
+                etNoteDescription.setText("")
+            }
         }
 
     }
