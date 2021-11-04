@@ -8,7 +8,9 @@
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_link.xml" value="0.1" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_search.xml" value="0.20185185185185187" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_create_note.xml" value="0.21" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/item_rv_notes.xml" value="0.33" />
       </map>
     </option>
   </component>
