@@ -1,13 +1,16 @@
 package com.example.kotlin_notes_app
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,11 +22,13 @@ import com.example.kotlin_notes_app.entities.Notes
 import com.example.kotlin_notes_app.util.NoteBottomSheetFragment
 import kotlinx.android.synthetic.main.fragment_create_note.*
 import kotlinx.coroutines.launch
+import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 
 
-class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks, EasyPermissions.PermissionCallbacks {
+class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
+    EasyPermissions.PermissionCallbacks {
     private var param1: String? = null
     private var param2: String? = null
     private var currentDate: String? = null
@@ -78,7 +83,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks, E
 
         imgBack.setOnClickListener {
 //            replaceFragment(HomeFragment.newInstance(), false)
-                requireActivity().supportFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         //
@@ -196,14 +201,18 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks, E
         super.onDestroy()
     }
 
-    private fun hasReadStoragePermission():Boolean{
-        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+    private fun hasReadStoragePermission(): Boolean {
+        return EasyPermissions.hasPermissions(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
     }
 
-    private fun readStorageTask(){
-        if (hasReadStoragePermission()){
-            Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
-        }else{
+    private fun readStorageTask() {
+        if (hasReadStoragePermission()) {
+//            Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+            pickImageFromGallery()
+        } else {
             EasyPermissions.requestPermissions(
                 requireActivity(),
                 "This app needs access your storage",
@@ -213,19 +222,64 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks, E
         }
     }
 
+
+    private fun pickImageFromGallery() {
+        var intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivityForResult(intent, REQUEST_CODE_IMAGE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_IMAGE && resultCode == RESULT_OK) {
+            if (data != null) {
+                var selectedImageUrl = data.data
+                if (selectedImageUrl != null) {
+                    try {
+                        var inputStream =
+                            requireActivity().contentResolver.openInputStream(selectedImageUrl)
+                        var bitmap = BitmapFactory.decodeStream(inputStream)
+                        ivNote.setImageBitmap(bitmap)
+                        ivNote.visibility = View.VISIBLE
+
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults,
+            requireActivity()
+        )
+    }
+
     override fun onRationaleAccepted(requestCode: Int) {
-        TODO("Not yet implemented")
     }
 
     override fun onRationaleDenied(requestCode: Int) {
-        TODO("Not yet implemented")
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        TODO("Not yet implemented")
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        TODO("Not yet implemented")
+        if (EasyPermissions.somePermissionPermanentlyDenied(requireActivity(), perms)) {
+            AppSettingsDialog.Builder(requireActivity()).build().show()
+        }
     }
 }
