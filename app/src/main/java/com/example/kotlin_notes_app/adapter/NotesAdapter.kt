@@ -32,10 +32,10 @@ class NotesAdapter(val arrList: List<Notes>) :
         }
 
         if (arrList[position].imgPath != null) {
-            holder.itemView.ivNote.setImageBitmap(BitmapFactory.decodeFile(arrList[position].imgPath))
-            holder.itemView.ivNote.visibility = View.VISIBLE
+            holder.itemView.ivNoteCard.setImageBitmap(BitmapFactory.decodeFile(arrList[position].imgPath))
+            holder.itemView.ivNoteCard.visibility = View.VISIBLE
         } else {
-            holder.itemView.ivNote.visibility = View.GONE
+            holder.itemView.ivNoteCard.visibility = View.GONE
         }
 
     }

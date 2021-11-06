@@ -125,7 +125,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                 etNoteTitle.setText("")
                 etNoteSubTitle.setText("")
                 etNoteDescription.setText("")
-                ivNote.visibility = View.GONE
+                ivNoteCreate.visibility = View.GONE
             }
         }
     }
@@ -255,8 +255,8 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                         var inputStream =
                             requireActivity().contentResolver.openInputStream(selectedImageUrl)
                         var bitmap = BitmapFactory.decodeStream(inputStream)
-                        ivNote.setImageBitmap(bitmap)
-                        ivNote.visibility = View.VISIBLE
+                        ivNoteCreate.setImageBitmap(bitmap)
+                        ivNoteCreate.visibility = View.VISIBLE
 
                         selectedImagePath = getPathFromUri(selectedImageUrl)!!
                     } catch (e: Exception) {

@@ -106,7 +106,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ivNote"
+        android:id="@+id/ivNoteCreate"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_300sdp"
         android:visibility="gone"
@@ -123,7 +123,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivNote">
+        app:layout_constraintTop_toBottomOf="@id/ivNoteCreate">
 
         <View
             android:id="@+id/colorView2"
