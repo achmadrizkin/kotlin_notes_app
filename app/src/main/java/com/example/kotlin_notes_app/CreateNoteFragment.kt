@@ -1,5 +1,6 @@
 package com.example.kotlin_notes_app
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -18,14 +19,18 @@ import com.example.kotlin_notes_app.entities.Notes
 import com.example.kotlin_notes_app.util.NoteBottomSheetFragment
 import kotlinx.android.synthetic.main.fragment_create_note.*
 import kotlinx.coroutines.launch
+import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 
 
-class CreateNoteFragment : BaseFragment() {
+class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks, EasyPermissions.PermissionCallbacks {
     private var param1: String? = null
     private var param2: String? = null
     private var currentDate: String? = null
     private var selectedColor = "#171C26"
+
+    private var READ_STORAGE_PERM = 123
+    private var REQUEST_CODE_IMAGE = 456
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,7 +139,7 @@ class CreateNoteFragment : BaseFragment() {
 
     private val BroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
-            var actionColor = p1!!.getStringExtra("actionColor")
+            var actionColor = p1!!.getStringExtra("action")
 
             when (actionColor) {
                 "Blue" -> {
@@ -173,6 +178,10 @@ class CreateNoteFragment : BaseFragment() {
                     colorView2.setBackgroundColor(Color.parseColor(selectedColor))
                 }
 
+                "Image" -> {
+                    readStorageTask()
+                }
+
                 else -> {
                     selectedColor = p1.getStringExtra("selectedColor")!!
                     colorView.setBackgroundColor(Color.parseColor(selectedColor))
@@ -185,5 +194,38 @@ class CreateNoteFragment : BaseFragment() {
     override fun onDestroy() {
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(BroadcastReceiver)
         super.onDestroy()
+    }
+
+    private fun hasReadStoragePermission():Boolean{
+        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+    }
+
+    private fun readStorageTask(){
+        if (hasReadStoragePermission()){
+            Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+        }else{
+            EasyPermissions.requestPermissions(
+                requireActivity(),
+                "This app needs access your storage",
+                READ_STORAGE_PERM,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        }
+    }
+
+    override fun onRationaleAccepted(requestCode: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRationaleDenied(requestCode: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        TODO("Not yet implemented")
     }
 }
