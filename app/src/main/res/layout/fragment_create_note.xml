@@ -277,6 +277,8 @@
             android:id="@+id/imgMore"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_more"
+            app:tint="@color/white"
             android:layout_gravity="center" />
     </FrameLayout>
 

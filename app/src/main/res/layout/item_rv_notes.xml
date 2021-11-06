@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
@@ -63,7 +64,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:fontFamily="@font/poppins_reguler"
-                android:textColor="@color/ColorText"/>
+                android:textColor="@color/ColorWhiteNote"/>
 
             <TextView
                 android:id="@+id/tvDateTime"
@@ -78,7 +79,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:fontFamily="@font/poppins_reguler"
-                android:textColor="@color/ColorText"/>
+                android:textColor="@color/ColorWhiteNote"/>
 
         </LinearLayout>
 

@@ -3,13 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17777777777777778" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/background.xml" value="0.20185185185185187" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_image.xml" value="0.2203125" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_link.xml" value="0.1" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_more.xml" value="0.18796296296296297" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_search.xml" value="0.20185185185185187" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/ic_tic2.xml" value="0.18796296296296297" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_1.xml" value="0.2203125" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_2.xml" value="0.15555555555555556" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_3.xml" value="0.15555555555555556" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_4.xml" value="0.15555555555555556" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_5.xml" value="0.15555555555555556" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_6.xml" value="0.15555555555555556" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_7.xml" value="0.15555555555555556" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_create_note.xml" value="0.21" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_notes_bottom_sheet.xml" value="0.25" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/item_rv_notes.xml" value="0.33" />
       </map>
     </option>

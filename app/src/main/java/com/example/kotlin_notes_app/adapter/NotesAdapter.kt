@@ -1,5 +1,6 @@
 package com.example.kotlin_notes_app.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,12 @@ class NotesAdapter(val arrList: List<Notes>) :
         holder.itemView.tvTitle1.text = arrList[position].title
         holder.itemView.tvDesc.text = arrList[position].noteText
         holder.itemView.tvDateTime.text = arrList[position].dateTime
+
+        if (arrList[position].color != null) {
+            holder.itemView.cvNotes.setCardBackgroundColor(Color.parseColor(arrList[position].color))
+        } else {
+            holder.itemView.cvNotes.setCardBackgroundColor(Color.parseColor("#171C26"))
+        }
     }
 
     override fun getItemCount(): Int {
