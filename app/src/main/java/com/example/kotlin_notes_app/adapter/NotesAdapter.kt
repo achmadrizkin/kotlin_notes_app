@@ -1,5 +1,6 @@
 package com.example.kotlin_notes_app.adapter
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,14 @@ class NotesAdapter(val arrList: List<Notes>) :
         } else {
             holder.itemView.cvNotes.setCardBackgroundColor(Color.parseColor("#171C26"))
         }
+
+        if (arrList[position].imgPath != null) {
+            holder.itemView.ivNote.setImageBitmap(BitmapFactory.decodeFile(arrList[position].imgPath))
+            holder.itemView.ivNote.visibility = View.VISIBLE
+        } else {
+            holder.itemView.ivNote.visibility = View.GONE
+        }
+
     }
 
     override fun getItemCount(): Int {

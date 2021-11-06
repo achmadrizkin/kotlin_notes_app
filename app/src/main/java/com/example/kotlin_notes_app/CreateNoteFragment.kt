@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
@@ -36,6 +37,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
     private var READ_STORAGE_PERM = 123
     private var REQUEST_CODE_IMAGE = 456
+    private var selectedImagePath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,10 +102,8 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
         if (etNoteTitle.text.isNullOrEmpty()) {
             Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
         } else if (etNoteSubTitle.text.isNullOrEmpty()) {
-
             Toast.makeText(context, "Note Sub Title is Required", Toast.LENGTH_SHORT).show()
         } else if (etNoteDescription.text.isNullOrEmpty()) {
-
             Toast.makeText(context, "Note Description is Required", Toast.LENGTH_SHORT).show()
         }
 
@@ -115,18 +115,19 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
             notes.noteText = etNoteDescription.text.toString()
             notes.dateTime = currentDate
             notes.color = selectedColor
+            notes.imgPath = selectedImagePath
 
             context?.let {
                 NotesDatabase.getDatabase(it).noteDao().insertNotes(notes)
-                replaceFragment(HomeFragment.newInstance(), false)
+                requireActivity().supportFragmentManager.popBackStack()
                 Toast.makeText(context, "Insert Success", Toast.LENGTH_SHORT).show()
 
                 etNoteTitle.setText("")
                 etNoteSubTitle.setText("")
                 etNoteDescription.setText("")
+                ivNote.visibility = View.GONE
             }
         }
-
     }
 
     fun replaceFragment(fragment: Fragment, istransition: Boolean) {
@@ -230,6 +231,20 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
         }
     }
 
+    private fun getPathFromUri(contentUri: Uri): String? {
+        var filePath: String? = null
+        var cursor = requireActivity().contentResolver.query(contentUri, null, null, null, null)
+        if (cursor == null) {
+            filePath = contentUri.path
+        } else {
+            cursor.moveToFirst()
+            var index = cursor.getColumnIndex("_data")
+            filePath = cursor.getString(index)
+            cursor.close()
+        }
+        return filePath
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_IMAGE && resultCode == RESULT_OK) {
@@ -243,6 +258,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                         ivNote.setImageBitmap(bitmap)
                         ivNote.visibility = View.VISIBLE
 
+                        selectedImagePath = getPathFromUri(selectedImageUrl)!!
                     } catch (e: Exception) {
                         Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
                     }
