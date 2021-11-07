@@ -25,6 +25,7 @@ import com.example.kotlin_notes_app.entities.Notes
 import com.example.kotlin_notes_app.util.NoteBottomSheetFragment
 import kotlinx.android.synthetic.main.fragment_create_note.*
 import kotlinx.android.synthetic.main.fragment_create_note.tvDateTime
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -42,12 +43,12 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
     private var REQUEST_CODE_IMAGE = 456
     private var selectedImagePath = ""
     private var webLink = ""
+    private var noteId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
+        noteId = requireArguments().getInt("noteId")
     }
 
     override fun onCreateView(
@@ -70,6 +71,36 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (noteId != -1) {
+            launch {
+                context?.let {
+                    var notes = NotesDatabase.getDatabase(it).noteDao().getSpecificNote(noteId)
+
+                    colorView.setBackgroundColor(Color.parseColor(notes.color))
+                    colorView2.setBackgroundColor(Color.parseColor(notes.color))
+
+                    etNoteTitle.setText(notes.title)
+                    etNoteSubTitle.setText(notes.subTitle)
+                    etNoteDescription.setText(notes.title)
+
+                    if (notes.imgPath != null && notes.imgPath != "") {
+                        ivNoteCreate.setImageBitmap(BitmapFactory.decodeFile(notes.imgPath))
+                        ivNoteCreate.visibility = View.VISIBLE
+                    } else {
+                        ivNoteCreate.visibility = View.GONE
+                    }
+
+                    if (notes.webLink != null && notes.webLink != "") {
+                        tvWebLink.text = notes.webLink
+                        tvWebLink.visibility = View.VISIBLE
+                    } else {
+                        tvWebLink.visibility = View.GONE
+                    }
+                }
+            }
+        }
+
 
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
             BroadcastReceiver, IntentFilter("bottom_sheet_action")
@@ -112,7 +143,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
         //
         btnCancel.setOnClickListener {
-           layoutWebUrl.visibility = View.GONE
+            layoutWebUrl.visibility = View.GONE
         }
 
         //
