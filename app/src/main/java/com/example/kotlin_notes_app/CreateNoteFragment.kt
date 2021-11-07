@@ -82,7 +82,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
                     etNoteTitle.setText(notes.title)
                     etNoteSubTitle.setText(notes.subTitle)
-                    etNoteDescription.setText(notes.title)
+                    etNoteDescription.setText(notes.noteText)
 
                     if (notes.imgPath != null && notes.imgPath != "") {
                         selectedImagePath = notes.imgPath!!
