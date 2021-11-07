@@ -17,10 +17,12 @@ class NoteBottomSheetFragment : BottomSheetDialogFragment() {
     private var selectedColor = "#171C26"
 
     companion object {
-        fun newInstance(): NoteBottomSheetFragment {
+        var noteId = -1
+        fun newInstance(id: Int): NoteBottomSheetFragment {
             val args = Bundle()
             val fragment = NoteBottomSheetFragment()
             fragment.arguments = args
+            noteId = id
             return fragment
         }
     }
@@ -81,6 +83,13 @@ class NoteBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (noteId != -1) {
+            layoutDelete.visibility = View.VISIBLE
+        } else {
+            layoutDelete.visibility = View.GONE
+        }
+
         setListener()
     }
 
@@ -189,6 +198,13 @@ class NoteBottomSheetFragment : BottomSheetDialogFragment() {
         layoutWebUrl.setOnClickListener {
             val intent = Intent("bottom_sheet_action")
             intent.putExtra("action", "WebUrl")
+            intent.putExtra("selectedColor", selectedColor)
+            LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+        }
+
+        layoutDelete.setOnClickListener {
+            val intent = Intent("bottom_sheet_action")
+            intent.putExtra("action", "DeleteNote")
             intent.putExtra("selectedColor", selectedColor)
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
         }

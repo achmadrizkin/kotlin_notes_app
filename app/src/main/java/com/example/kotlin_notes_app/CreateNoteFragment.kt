@@ -138,7 +138,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
         //
         imgMore.setOnClickListener {
-            var noteBottomSheetFragment = NoteBottomSheetFragment.newInstance()
+            var noteBottomSheetFragment = NoteBottomSheetFragment.newInstance(noteId)
             noteBottomSheetFragment.show(
                 requireActivity().supportFragmentManager,
                 "Note Bottom Sheet"
@@ -207,6 +207,15 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                 ivNoteCreate.visibility = View.GONE
                 tvWebLink.visibility = View.GONE
                 layoutImage.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun deleteNote() {
+        launch {
+            context?.let {
+                NotesDatabase.getDatabase(it).noteDao().deleteSpecificNote(noteId)
+                requireActivity().supportFragmentManager.popBackStack()
             }
         }
     }
@@ -315,6 +324,11 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
                 "WebUrl" -> {
                     layoutWebUrl.visibility = View.VISIBLE
+                }
+
+                "DeleteNote" -> {
+                    // Delete Note
+                    deleteNote()
                 }
 
                 else -> {
