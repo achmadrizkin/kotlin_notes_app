@@ -48,7 +48,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        noteId = requireArguments().getInt("noteId")
+        noteId = requireArguments().getInt("noteId", -1)
     }
 
     override fun onCreateView(
