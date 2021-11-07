@@ -105,80 +105,110 @@
             android:textSize="@dimen/_10ssp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ivNoteCreate"
+    <RelativeLayout
+        android:id="@+id/layoutImage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp"
-        android:layout_margin="@dimen/_10sdp"
+        android:layout_height="wrap_content"
         android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/l1">
 
-        app:layout_constraintBottom_toTopOf="@id/layoutWebUrl"
-        app:layout_constraintTop_toBottomOf="@id/l1" />
+        <ImageView
+            android:id="@+id/ivNoteCreate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/ColorWhite"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layoutWebUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-
         android:layout_margin="@dimen/_10sdp"
-
         android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivNoteCreate">
+        app:layout_constraintTop_toBottomOf="@id/layoutImage">
 
-        <EditText
-            android:id="@+id/etWebUrl"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:background="@null"
-            android:ellipsize="end"
-            android:fontFamily="@font/poppins_reguler"
-            android:hint="Enter Web Url"
-            android:inputType="textMultiLine"
-            android:text="http://"
-            android:padding="@dimen/_10sdp"
-            android:textColor="@color/ColorWhite"
-            android:textColorHint="@color/ColorGray"
-            android:textSize="@dimen/_10ssp" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etWebUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="@font/poppins_reguler"
+                android:hint="Web Url"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/_10sdp"
+                android:text="http://"
+                android:textColor="@color/ColorWhite"
+                android:textColorHint="@color/ColorGray"
+                android:textSize="@dimen/_11ssp" />
+
+            <ImageView
+                android:id="@+id/ivDeleteUrl"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:src="@drawable/ic_cancel"
+                app:tint="@color/ColorWhite"
+                android:visibility="gone" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_10sdp"
             android:gravity="end"
-
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-
             android:orientation="horizontal">
+
 
             <Button
                 android:id="@+id/btnCancel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-
-                android:textAllCaps="false"
-                android:textSize="@dimen/_11ssp"
+                android:layout_height="@dimen/_30sdp"
                 android:backgroundTint="@color/colorAccent"
-                android:text="Cancel"/>
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/ColorWhite"
+                android:textSize="@dimen/_11ssp" />
 
             <Button
                 android:id="@+id/btnOk"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:backgroundTint="@color/colorAccent"
-                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Ok"
                 android:textAllCaps="false"
-
-                android:layout_marginStart="@dimen/_10sdp"
-                android:text="Ok"/>
-
+                android:textColor="@color/ColorWhite"
+                android:textSize="@dimen/_11ssp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -190,14 +220,14 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_5sdp"
+        android:autoLink="web"
         android:ellipsize="end"
-        android:visibility="gone"
         android:fontFamily="@font/poppins_bold"
         android:padding="@dimen/_10sdp"
         android:textColor="@color/ColorGray"
         android:textColorHint="@color/ColorGray"
         android:textSize="@dimen/_11ssp"
-        android:autoLink="web"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutWebUrl" />

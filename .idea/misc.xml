@@ -20,10 +20,11 @@
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_6.xml" value="0.15555555555555556" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/drawable/note_color_7.xml" value="0.15555555555555556" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_create_note.xml" value="0.25" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_create_note.xml" value="0.22" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/fragment_notes_bottom_sheet.xml" value="0.25" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/layout/item_rv_notes.xml" value="0.33" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_notes_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20092592592592592" />
       </map>
     </option>
   </component>

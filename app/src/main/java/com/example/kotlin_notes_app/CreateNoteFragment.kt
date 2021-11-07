@@ -85,17 +85,26 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                     etNoteDescription.setText(notes.title)
 
                     if (notes.imgPath != null && notes.imgPath != "") {
+                        selectedImagePath = notes.imgPath!!
                         ivNoteCreate.setImageBitmap(BitmapFactory.decodeFile(notes.imgPath))
                         ivNoteCreate.visibility = View.VISIBLE
+                        layoutImage.visibility = View.VISIBLE
+                        ivDelete.visibility = View.VISIBLE
                     } else {
                         ivNoteCreate.visibility = View.GONE
+                        layoutImage.visibility = View.GONE
+                        ivDelete.visibility = View.GONE
                     }
 
                     if (notes.webLink != null && notes.webLink != "") {
                         tvWebLink.text = notes.webLink
+                        layoutWebUrl.visibility = View.VISIBLE
+                        etWebUrl.setText(notes.webLink)
+                        ivDeleteUrl.visibility = View.VISIBLE
                         tvWebLink.visibility = View.VISIBLE
                     } else {
-                        tvWebLink.visibility = View.GONE
+                        ivDeleteUrl.visibility = View.GONE
+                        layoutWebUrl.visibility = View.GONE
                     }
                 }
             }
@@ -115,7 +124,11 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
         //
         imgDone.setOnClickListener {
-            saveNote()
+            if (noteId != -1) {
+                updateNote()
+            } else {
+                saveNote()
+            }
         }
 
         imgBack.setOnClickListener {
@@ -143,13 +156,58 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
 
         //
         btnCancel.setOnClickListener {
-            layoutWebUrl.visibility = View.GONE
+            if (noteId != -1){
+                tvWebLink.visibility = View.VISIBLE
+                layoutWebUrl.visibility = View.GONE
+            }else{
+                layoutWebUrl.visibility = View.GONE
+            }
         }
 
         //
         tvWebLink.setOnClickListener {
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse(etWebUrl.text.toString()))
             startActivity(intent)
+        }
+
+        //
+        ivDelete.setOnClickListener {
+            selectedImagePath = ""
+            layoutImage.visibility = View.GONE
+        }
+
+        //
+        ivDeleteUrl.setOnClickListener {
+            webLink = ""
+            tvWebLink.visibility = View.GONE
+            ivDeleteUrl.visibility = View.GONE
+            layoutWebUrl.visibility = View.GONE
+        }
+    }
+
+    private fun updateNote() {
+        launch {
+            context?.let {
+                val notes = NotesDatabase.getDatabase(it).noteDao().getSpecificNote(noteId)
+                notes.title = etNoteTitle.text.toString()
+                notes.subTitle = etNoteSubTitle.text.toString()
+                notes.noteText = etNoteDescription.text.toString()
+                notes.dateTime = currentDate
+                notes.color = selectedColor
+                notes.imgPath = selectedImagePath
+                notes.webLink = webLink
+
+                NotesDatabase.getDatabase(it).noteDao().updateNote(notes)
+                requireActivity().supportFragmentManager.popBackStack()
+                Toast.makeText(context, "Insert Success", Toast.LENGTH_SHORT).show()
+
+                etNoteTitle.setText("")
+                etNoteSubTitle.setText("")
+                etNoteDescription.setText("")
+                ivNoteCreate.visibility = View.GONE
+                tvWebLink.visibility = View.GONE
+                layoutImage.visibility = View.GONE
+            }
         }
     }
 
@@ -182,6 +240,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                     etNoteDescription.setText("")
                     ivNoteCreate.visibility = View.GONE
                     tvWebLink.visibility = View.GONE
+                    layoutImage.visibility = View.GONE
                 }
             }
         }
@@ -259,8 +318,10 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                 }
 
                 else -> {
+                    layoutImage.visibility = View.GONE
                     ivNoteCreate.visibility = View.GONE
                     layoutWebUrl.visibility = View.GONE
+
                     selectedColor = p1.getStringExtra("selectedColor")!!
                     colorView.setBackgroundColor(Color.parseColor(selectedColor))
                     colorView2.setBackgroundColor(Color.parseColor(selectedColor))
@@ -329,6 +390,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.RationaleCallbacks,
                         var bitmap = BitmapFactory.decodeStream(inputStream)
                         ivNoteCreate.setImageBitmap(bitmap)
                         ivNoteCreate.visibility = View.VISIBLE
+                        layoutImage.visibility = View.VISIBLE
 
                         selectedImagePath = getPathFromUri(selectedImageUrl)!!
                     } catch (e: Exception) {
