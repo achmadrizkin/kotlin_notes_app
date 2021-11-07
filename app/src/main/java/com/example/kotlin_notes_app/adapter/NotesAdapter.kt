@@ -38,6 +38,13 @@ class NotesAdapter(val arrList: List<Notes>) :
             holder.itemView.ivNoteCard.visibility = View.GONE
         }
 
+        if (arrList[position].webLink != null) {
+            holder.itemView.tvWebLink.text = arrList[position].webLink
+            holder.itemView.tvWebLink.visibility = View.VISIBLE
+        } else {
+            holder.itemView.tvWebLink.visibility = View.GONE
+        }
+
     }
 
     override fun getItemCount(): Int {

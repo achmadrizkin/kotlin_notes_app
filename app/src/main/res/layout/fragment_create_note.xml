@@ -109,11 +109,99 @@
         android:id="@+id/ivNoteCreate"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_300sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:visibility="gone"
+
+        app:layout_constraintBottom_toTopOf="@id/layoutWebUrl"
+        app:layout_constraintTop_toBottomOf="@id/l1" />
+
+    <LinearLayout
+        android:id="@+id/layoutWebUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+
         android:layout_margin="@dimen/_10sdp"
 
-        app:layout_constraintBottom_toTopOf="@id/l2"
-        app:layout_constraintTop_toBottomOf="@id/l1" />
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivNoteCreate">
+
+        <EditText
+            android:id="@+id/etWebUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_reguler"
+            android:hint="Enter Web Url"
+            android:inputType="textMultiLine"
+            android:text="http://"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/ColorWhite"
+            android:textColorHint="@color/ColorGray"
+            android:textSize="@dimen/_10ssp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+
+                android:textAllCaps="false"
+                android:textSize="@dimen/_11ssp"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Cancel"/>
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:backgroundTint="@color/colorAccent"
+                android:textSize="@dimen/_11ssp"
+                android:textAllCaps="false"
+
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Ok"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvWebLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:visibility="gone"
+        android:fontFamily="@font/poppins_bold"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/ColorGray"
+        android:textColorHint="@color/ColorGray"
+        android:textSize="@dimen/_11ssp"
+        android:autoLink="web"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutWebUrl" />
+
 
     <LinearLayout
         android:id="@+id/l2"
@@ -123,7 +211,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivNoteCreate">
+        app:layout_constraintTop_toBottomOf="@id/tvWebLink">
 
         <View
             android:id="@+id/colorView2"
@@ -158,9 +246,9 @@
             android:id="@+id/imgMore"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_more"
-            app:tint="@color/white"
-            android:layout_gravity="center" />
+            app:tint="@color/white" />
     </FrameLayout>
 
 
